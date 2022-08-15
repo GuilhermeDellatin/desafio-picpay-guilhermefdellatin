@@ -2,11 +2,13 @@ package com.picpay.desafio.android.di
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.picpay.desafio.android.data.database.AppDataBase
 import com.picpay.desafio.android.data.repository.UserRepository
 import com.picpay.desafio.android.data.repository.UserRepositoryImpl
 import com.picpay.desafio.android.data.services.PicPayService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -19,7 +21,7 @@ object DataModules {
     private const val HTTP_TAG = "OkHttp"
 
     fun load() {
-        loadKoinModules(networkingModule() + repositoryModules())
+        loadKoinModules(networkingModule() + repositoryModules() + databaseModules())
     }
 
     private fun networkingModule(): Module {
@@ -47,7 +49,13 @@ object DataModules {
 
     private fun repositoryModules() : Module {
         return module {
-            single<UserRepository> { UserRepositoryImpl(get()) }
+            single<UserRepository> { UserRepositoryImpl(get(), get()) }
+        }
+    }
+
+    private fun databaseModules() : Module {
+        return module {
+            single { AppDataBase.getInstance(androidApplication()) }
         }
     }
 

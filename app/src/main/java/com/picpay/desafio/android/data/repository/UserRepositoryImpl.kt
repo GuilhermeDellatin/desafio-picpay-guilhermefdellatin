@@ -1,25 +1,56 @@
 package com.picpay.desafio.android.data.repository
 
+import com.picpay.desafio.android.data.database.AppDataBase
+import com.picpay.desafio.android.data.database.entity.UserEntity
+import com.picpay.desafio.android.data.database.entity.toUsersModel
 import com.picpay.desafio.android.data.remote.toUserModel
 import com.picpay.desafio.android.data.services.PicPayService
+import com.picpay.desafio.android.domain.model.User
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import java.lang.Exception
 
 class UserRepositoryImpl(
-    private val service: PicPayService
+    private val service: PicPayService,
+    appDataBase: AppDataBase
 ) : UserRepository {
+
+    private val usersDao = appDataBase.usersDao()
 
     override suspend fun getUsers() = flow {
         try {
             val userList = service.getUsers().map {
                 it.toUserModel()
             }
+            save(userList)
             emit(userList)
-        } catch (e: HttpException) {
-            throw RemoteException("Unable to connect Api")
+        }
+        catch (e: Exception) {
+            try {
+                emit(listUser())
+            } catch (e: HttpException) {
+                throw RemoteException("Unable to connect Api")
+            }
+        }
+
+    }
+
+    private suspend fun listUser(): List<User> {
+        return usersDao.getAllUsers().map {
+            it.toUsersModel()
         }
     }
+
+    private suspend fun save(user: List<User>) {
+        usersDao.insertAllUsers(
+            user.map {
+                it.toUserEntity()
+            }
+        )
+    }
+
 }
 
+
 class RemoteException(message: String) : Exception(message)
+
+private fun User.toUserEntity() = UserEntity(img, name, id, username)

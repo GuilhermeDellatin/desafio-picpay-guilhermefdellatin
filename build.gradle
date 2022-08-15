@@ -30,7 +30,7 @@ buildscript {
         rxandroid_version = "2.1.1"
         core_ktx_test_version = "1.2.0"
         room_database = "2.3.0"
-        room_compiler = "2.2.5"
+        room_compiler = "2.3.0"
 
         nav_version = "2.4.2"
     }
