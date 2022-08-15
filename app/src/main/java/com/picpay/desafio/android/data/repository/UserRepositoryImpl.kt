@@ -1,9 +1,9 @@
 package com.picpay.desafio.android.data.repository
 
-import com.picpay.desafio.android.data.database.AppDataBase
-import com.picpay.desafio.android.data.database.entity.UserEntity
-import com.picpay.desafio.android.data.database.entity.toUsersModel
-import com.picpay.desafio.android.data.remote.toUserModel
+import com.picpay.desafio.android.data.local.database.AppDataBase
+import com.picpay.desafio.android.data.mapper.toUserEntity
+import com.picpay.desafio.android.data.mapper.toUserModel
+import com.picpay.desafio.android.data.mapper.toUsersModel
 import com.picpay.desafio.android.data.services.PicPayService
 import com.picpay.desafio.android.domain.model.User
 import kotlinx.coroutines.flow.flow
@@ -52,5 +52,3 @@ class UserRepositoryImpl(
 
 
 class RemoteException(message: String) : Exception(message)
-
-private fun User.toUserEntity() = UserEntity(img, name, id, username)

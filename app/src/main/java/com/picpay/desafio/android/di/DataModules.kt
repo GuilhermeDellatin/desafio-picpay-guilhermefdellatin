@@ -2,7 +2,7 @@ package com.picpay.desafio.android.di
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.picpay.desafio.android.data.database.AppDataBase
+import com.picpay.desafio.android.data.local.database.AppDataBase
 import com.picpay.desafio.android.data.repository.UserRepository
 import com.picpay.desafio.android.data.repository.UserRepositoryImpl
 import com.picpay.desafio.android.data.services.PicPayService

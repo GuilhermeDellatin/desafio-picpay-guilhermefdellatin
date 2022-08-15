@@ -1,11 +1,11 @@
-package com.picpay.desafio.android.data.database.dao
+package com.picpay.desafio.android.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.picpay.desafio.android.constants.DataBaseConstants
-import com.picpay.desafio.android.data.database.entity.UserEntity
+import com.picpay.desafio.android.data.local.database.entity.UserEntity
 
 @Dao
 interface UsersDao {

@@ -17,5 +17,6 @@ class App : Application() {
         }
         DataModules.load()
         DomainModules.load()
+        UiModules.load()
     }
 }

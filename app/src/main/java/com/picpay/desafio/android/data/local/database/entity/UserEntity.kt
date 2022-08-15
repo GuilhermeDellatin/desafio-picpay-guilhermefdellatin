@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.data.database.entity
+package com.picpay.desafio.android.data.local.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -19,12 +19,3 @@ data class UserEntity(
     @ColumnInfo(name = DataBaseConstants.USERS_COLUMN_INFO_USERNAME)
     val username: String,
 )
-
-fun UserEntity.toUsersModel(): User {
-    return User(
-        img = this.img,
-        name = this.name,
-        id = this.id,
-        username = this.username
-    )
-}
