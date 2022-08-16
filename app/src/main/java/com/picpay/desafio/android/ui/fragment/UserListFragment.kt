@@ -38,9 +38,7 @@ class UserListFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = userAdapter
-        }
+        binding.recyclerView.adapter = userAdapter
     }
 
     private fun setupObservers() {
@@ -48,13 +46,15 @@ class UserListFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is ViewState.Loading -> {
-                    showProgress(true)
+                    binding.userListProgressBar.visibility = View.VISIBLE
                 }
                 is ViewState.Error -> {
-                    showProgress(false)
+                    setupErrorView()
                 }
                 is ViewState.Success -> {
-                    showProgress(false)
+                    binding.userListProgressBar.visibility = View.GONE
+                    binding.constraintError.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
                     userAdapter.submitList(it.result)
                 }
             }
@@ -62,11 +62,15 @@ class UserListFragment : Fragment() {
 
     }
 
-    private fun showProgress(showProgress: Boolean) {
-        if (showProgress) {
-            binding.userListProgressBar.visibility = View.VISIBLE
-        } else {
-            binding.userListProgressBar.visibility = View.GONE
+    private fun setupErrorView() {
+
+        binding.userListProgressBar.visibility = View.GONE
+        binding.constraintError.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
+
+        binding.errorView.btnTryAgain.setOnClickListener {
+            viewModel.getUsersList()
         }
     }
+
 }

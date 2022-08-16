@@ -25,13 +25,13 @@ class UserViewModel(
             listUserUseCase()
                 .flowOn(Dispatchers.Main)
                 .onStart {
-                    _state.postValue(ViewState.Loading)
+                    _state.value = ViewState.Loading
                 }
                 .catch {
                     _state.postValue(ViewState.Error(it))
                 }
                 .collect {
-                    _state.postValue(ViewState.Success(it))
+                    _state.value = ViewState.Success(it)
                 }
         }
     }

@@ -6,6 +6,7 @@ import com.picpay.desafio.android.data.mapper.toUserModel
 import com.picpay.desafio.android.data.mapper.toUsersModel
 import com.picpay.desafio.android.data.services.PicPayService
 import com.picpay.desafio.android.domain.model.User
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
@@ -25,11 +26,9 @@ class UserRepositoryImpl(
             emit(userList)
         }
         catch (e: Exception) {
-            try {
-                emit(listUser())
-            } catch (e: HttpException) {
-                throw RemoteException("Unable to connect Api")
-            }
+                if (listUser().isNotEmpty()) {
+                    emit(listUser())
+                } else throw RemoteException("Unable to connect Api")
         }
 
     }
