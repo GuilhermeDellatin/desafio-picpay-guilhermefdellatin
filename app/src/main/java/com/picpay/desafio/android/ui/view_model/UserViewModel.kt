@@ -11,12 +11,13 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(
     private val listUserUseCase: ListUserUseCase
-) : ViewModel() {
+) : ViewModel(), DefaultLifecycleObserver {
 
     private val _state = MutableLiveData<ViewState<List<User>>>()
     val state: LiveData<ViewState<List<User>>> get() = _state
 
-    init {
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
         getUsersList()
     }
 
@@ -25,7 +26,7 @@ class UserViewModel(
             listUserUseCase()
                 .flowOn(Dispatchers.Main)
                 .onStart {
-                    _state.value = ViewState.Loading
+                    _state.postValue(ViewState.Loading)
                 }
                 .catch {
                     _state.postValue(ViewState.Error(it))

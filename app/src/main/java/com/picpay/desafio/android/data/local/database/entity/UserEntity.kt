@@ -3,8 +3,7 @@ package com.picpay.desafio.android.data.local.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.picpay.desafio.android.constants.DataBaseConstants
-import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.commons.constants.DataBaseConstants
 
 @Entity(tableName = DataBaseConstants.USERS_TABLE_NAME)
 data class UserEntity(

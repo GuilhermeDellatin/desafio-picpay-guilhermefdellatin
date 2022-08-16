@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.constants
+package com.picpay.desafio.android.commons.constants
 
 object DataBaseConstants {
     const val APP_DATABASE_NAME = "app_database"
@@ -7,4 +7,6 @@ object DataBaseConstants {
     const val USERS_COLUMN_INFO_USERNAME = "username"
     const val USERS_COLUMN_INFO_IMG = "img"
     const val USERS_COLUMN_INFO_NAME = "name"
+    const val DATA_BASE_ERROR = "DATA_BASE_ERROR: "
+    const val DATA_BASE_ERROR_GET_USERS = "Ocorreu um erro ao buscar os dados dos usuarios!"
 }

@@ -1,14 +1,15 @@
 package com.picpay.desafio.android.data.repository
 
+import android.util.Log
+import com.picpay.desafio.android.commons.constants.DataBaseConstants
+import com.picpay.desafio.android.commons.exceptions.RemoteException
 import com.picpay.desafio.android.data.local.database.AppDataBase
 import com.picpay.desafio.android.data.mapper.toUserEntity
 import com.picpay.desafio.android.data.mapper.toUserModel
 import com.picpay.desafio.android.data.mapper.toUsersModel
 import com.picpay.desafio.android.data.services.PicPayService
 import com.picpay.desafio.android.domain.model.User
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 
 class UserRepositoryImpl(
     private val service: PicPayService,
@@ -28,7 +29,10 @@ class UserRepositoryImpl(
         catch (e: Exception) {
                 if (listUser().isNotEmpty()) {
                     emit(listUser())
-                } else throw RemoteException("Unable to connect Api")
+                } else {
+                    Log.e(DataBaseConstants.DATA_BASE_ERROR, DataBaseConstants.DATA_BASE_ERROR_GET_USERS)
+                    throw RemoteException("Unable to connect Api")
+                }
         }
 
     }
@@ -48,6 +52,3 @@ class UserRepositoryImpl(
     }
 
 }
-
-
-class RemoteException(message: String) : Exception(message)

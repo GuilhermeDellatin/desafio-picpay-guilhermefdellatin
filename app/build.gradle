@@ -60,6 +60,7 @@ dependencies {
     implementation "io.insert-koin:koin-android-ext:$koin_version"
 
     implementation "com.google.dagger:dagger:$dagger_version"
+    testImplementation project(path: ':app')
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -95,6 +96,7 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
 
