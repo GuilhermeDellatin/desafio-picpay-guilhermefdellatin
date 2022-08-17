@@ -37,13 +37,13 @@ class UserRepositoryImpl(
 
     }
 
-    private suspend fun listUser(): List<User> {
+    override suspend fun listUser(): List<User> {
         return usersDao.getAllUsers().map {
             it.toUsersModel()
         }
     }
 
-    private suspend fun save(user: List<User>) {
+    override suspend fun save(user: List<User>) {
         usersDao.insertAllUsers(
             user.map {
                 it.toUserEntity()
